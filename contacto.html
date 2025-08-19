@@ -73,7 +73,6 @@
                                 <p class="ms-4">Lunes a Viernes 9:00 - 18:00</p>
                             </div>
 
-                          
                             <div class="social-icons">
                                 <a href="#" class="me-3"><i class="fab fa-facebook"></i></a>
                                 <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
@@ -99,6 +98,31 @@
                         <div class="mb-3">
                             <select class="form-select" id="servicio">
                                 <option value="">Seleccione un producto o servicio</option>
+                                <option value="Registros de Alumbrado">Registros de Alumbrado</option>
+                                <option value="Registro de Baja y Media Tensión">Registro de Baja y Media Tensión</option>
+                                <option value="Muretes Prefabricados">Muretes Prefabricados</option>
+                                <option value="Pozos de Visita">Pozos de Visita</option>
+                                <option value="Tapas de Concreto Polimérico">Tapas de Concreto Polimérico</option>
+                                <option value="Bases de Concreto para Poste">Bases de Concreto para Poste</option>
+                                <option value="Bastidores">Bastidores</option>
+                                <option value="Crucetas">Crucetas</option>
+                                <option value="Tornillos Doble Rosca">Tornillos Doble Rosca</option>
+                                <option value="Abrazaderas">Abrazaderas</option>
+                                <option value="Pernos">Pernos</option>
+                                <option value="Arandelas">Arandelas</option>
+                                <option value="Grapas">Grapas</option>
+                                <option value="Ménsulas">Ménsulas</option>
+                                <option value="Tirantes">Tirantes</option>
+                                <option value="Soportes">Soportes</option>
+                                <option value="Codos">Codos</option>
+                                <option value="Porta fusibles">Porta fusibles</option>
+                                <option value="AISLADORES:(Tipo PD/ASUS)">AISLADORES:(Tipo PD/ASUS)</option>
+                                <option value="APARTARAYOS:(Poliméricos/Cerámica)">APARTARAYOS:(Poliméricos/Cerámica)</option>
+                                <option value="CABLES: Diferentes diámetros (Aéreos/Subterráneos)">CABLES: Diferentes diámetros (Aéreos/Subterráneos)</option>
+                                <option value="ACCESORIOS SUBTERRANEOS:(Aéreos/Subterráneos)">ACCESORIOS SUBTERRANEOS:(Aéreos/Subterráneos)</option>
+                                <option value="CORTACIRCUITOS:(Tipo C/Tipo V)">CORTACIRCUITOS:(Tipo C/Tipo V)</option>
+                                <option value="PAD LISO Y CORRUGADO:(Aéreos/Subterráneos)">PAD LISO Y CORRUGADO:(Aéreos/Subterráneos)</option>
+                                <option value="TRANSFORMADORES:(Tipo Poste/Pedestal)">TRANSFORMADORES:(Tipo Poste/Pedestal)</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -119,11 +143,9 @@
                 <p class="lead">Visítenos en nuestras instalaciones</p>
             </div>
             <div class="ratio ratio-21x9">
-              <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.671234015503!2d-96.7338231!3d18.8135678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c48bdb38f7dfbb%3A0xa38b8825e9a7f25e!2sCarretera%20Federal%20C%C3%B3rdoba-Veracruz%20Km.%2023.5%2C%20Cuitl%C3%A1huac%2C%20Veracruz%20C.P.%2094910!5e0!3m2!1ses-419!2smx!4v1691902834234!5m2!1ses-419!2smx"
-    style="border:0;" allowfullscreen="" loading="lazy">
-</iframe>
-
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.671234015503!2d-96.7338231!3d18.8135678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c48bdb38f7dfbb%3A0xa38b8825e9a7f25e!2sCarretera%20Federal%20C%C3%B3rdoba-Veracruz%20Km.%2023.5%2C%20Cuitl%C3%A1huac%2C%20Veracruz%20C.P.%2094910!5e0!3m2!1ses-419!2smx!4v1691902834234!5m2!1ses-419!2smx"
+                    style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
@@ -175,79 +197,46 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Inputs ocultos para email y pass -->
-    <input type="hidden" id="email_user" value="mobed267@gmail.com">
-    <input type="hidden" id="email_pass" value="fssz qkmk scza icdj">
-    <input type="hidden" id="email_to" value="mobed267@gmail.com">
+    <!-- EmailJS SDK v4 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Inicializar EmailJS con tu Public Key
+        emailjs.init("t6BJv0yG_epvbVVwi");
 
-    <!-- Custom JS -->
-    <script>
-        // Cargar opciones del select desde la API
-        async function cargarProductosServicios() {
-            try {
-                const response = await fetch("http://localhost:3001/api/servicioProductos");
-                const productosServicios = await response.json();
-                const servicioSelect = document.querySelector("#servicio");
-                servicioSelect.innerHTML = '<option value="">Seleccione un producto o servicio</option>';
-                productosServicios.forEach((ps) => {
-                    const option = document.createElement("option");
-                    option.value = ps.id_producto_servicio;
-                    option.textContent = ps.nombre;
-                    servicioSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error("Error al cargar productos/servicios:", error);
-            }
-        }
-        cargarProductosServicios();
-
-        // Manejo del formulario de contacto
-        document.getElementById("contactForm").addEventListener("submit", async function (e) {
+        // Manejo del formulario con EmailJS
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const data = {
-                nombre_completo: document.getElementById("nombre").value.trim(),
-                correo_electronico: document.getElementById("correo").value.trim(),
-                telefono: document.getElementById("telefono").value.trim(),
-                id_producto_servicio: document.getElementById("servicio").value,
-                mensaje: document.getElementById("mensaje").value.trim(),
-                emailUser: document.getElementById("email_user").value.trim(),
-                emailPass: document.getElementById("email_pass").value.trim(),
-                emailTo: document.getElementById("email_to").value.trim()
-            };
+            const nombre = document.getElementById("nombre").value.trim();
+            const correo = document.getElementById("correo").value.trim();
+            const telefono = document.getElementById("telefono").value.trim();
+            const servicio = document.getElementById("servicio").value;
+            const mensaje = document.getElementById("mensaje").value.trim();
 
-            if (!data.nombre_completo || !data.correo_electronico || !data.mensaje) {
+            if (!nombre || !correo || !mensaje) {
                 alert("Por favor, complete todos los campos obligatorios.");
                 return;
             }
 
-            data.emailUser = data.emailUser || "mobed267@gmail.com";
-            data.emailPass = data.emailPass || "fssz qkmk scza icdj";
-            data.emailTo = data.emailTo || "mobed267@gmail.com";
+            const templateParams = {
+                from_name: nombre,
+                from_email: correo,
+                telefono: telefono,
+                servicio: servicio,
+                message: mensaje
+            };
 
-            try {
-                const response = await fetch("http://localhost:3001/api/contacto", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
+            // Usa el template ID correcto que hayas creado en EmailJS
+            emailjs.send("service_h2f1ndg", "template_lz5cifz", templateParams)
+                .then(function(response) {
                     alert("✅ Mensaje enviado correctamente");
                     document.getElementById("contactForm").reset();
-                } else {
-                    console.error(result);
-                    alert("❌ Error: " + (result.error || "No se pudo enviar el mensaje"));
-                }
-
-            } catch (error) {
-                console.error("Error:", error);
-                alert("❌ Hubo un error al enviar el mensaje");
-            }
+                })
+                .catch(function(error) {
+                    console.error('Error al enviar correo:', error, error.text);
+                    alert("❌ Hubo un error al enviar el mensaje");
+                });
         });
     </script>
 </body>
-
 </html>
